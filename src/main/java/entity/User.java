@@ -10,8 +10,8 @@ import java.util.List;
 public class User {
 
     private final String name;
-    private final List<Document> documentsCreated = new ArrayList<>();
-    private final List<Document> documentsAccessed = new ArrayList<>();
+    private List<Document> docsCreated = new ArrayList<>();
+    private List<Document> docsAccessed = new ArrayList<>();
 
     /**
      * Creates a new user with the given non-empty name.
@@ -25,20 +25,22 @@ public class User {
         this.name = name;
     }
 
+    public User(String name, List<Document> docsCreated, List<Document> docsAccessed) {
+        this(name);
+        this.docsCreated = docsCreated;
+        this.docsAccessed = docsAccessed;
+    }
+
     public String getName() {
         return name;
     }
 
-    public List<Document> getDocumentsCreated() { return documentsCreated; }
+    public List<Document> getDocumentsCreated() { return docsCreated; }
 
-    public List<Document> getDocumentsAccessed() { return documentsAccessed; }
+    public List<Document> getDocumentsAccessed() { return docsAccessed; }
 
-    public void addDocumentCreated(Document document) {
-        documentsCreated.add(document);
-    }
+    public void addDocumentCreated(Document doc) { docsCreated.add(doc); }
 
-    public void addDocumentAccessed(Document document) {
-        documentsAccessed.add(document);
-    }
+    public void addDocumentAccessed(Document doc) { docsAccessed.add(doc); }
 
 }

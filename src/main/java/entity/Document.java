@@ -11,8 +11,8 @@ public class Document {
 
     private final String name;
     private final User creator;
-    private final List<User> accessedBy = new ArrayList<>();
-    private final String contents = ""; // edit contents type later if needed
+    private List<User> accessedBy = new ArrayList<>();
+    private String contents = ""; // edit contents type later if needed
 
     /**
      * Creates a new document with the given non-empty name and the user that
@@ -27,6 +27,12 @@ public class Document {
         }
         this.name = name;
         this.creator = creator;
+    }
+
+    public Document(String name, User creator, List<User> accessedBy, String contents) {
+        this(name, creator);
+        this.accessedBy = accessedBy;
+        this.contents = contents;
     }
 
     public String getName() { return name; }
