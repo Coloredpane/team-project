@@ -12,7 +12,8 @@ public class SpellcheckInputData {
      * @param text the text to be checked
      */
      public SpellcheckInputData(String text) {
-     this.text = text;}
+     this.text = text;
+     }
 
     /**
      * Gets the text belonging to this SpellcheckInputData object.

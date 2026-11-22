@@ -7,8 +7,8 @@ package use_case.spellcheck;
 public interface SpellcheckInputBoundary {
 
     /**
-     * Executes the spellchecking use case.
-     * @param inputData the input data to be checked
+     * Executes the spellchecking action.
+     * @param inputData the text to be checked
      */
     void execute(SpellcheckInputData inputData);
 }

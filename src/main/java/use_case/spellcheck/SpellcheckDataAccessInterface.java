@@ -6,7 +6,7 @@ import java.util.List;
  * Data access interface for spellcheck use case.
  */
 
-public interface SpellcheckAccessInterface {
+public interface SpellcheckDataAccessInterface {
 
     /**
      * Gets suggestions for text.
