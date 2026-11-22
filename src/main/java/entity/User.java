@@ -48,9 +48,9 @@ public class User {
         return name;
     }
 
-    public List<Document> getDocumentsCreated() { return documentsCreated; }
+    public List<Document> getDocumentsCreated() { return docsCreated; }
 
-    public List<Document> getDocumentsAccessed() { return documentsAccessed; }
+    public List<Document> getDocumentsAccessed() { return docsAccessed; }
 
     public void addDocumentCreated(Document document) {
         if (!documentsCreated.contains(document)) {
