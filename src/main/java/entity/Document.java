@@ -4,52 +4,66 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A document: its name, who created it, who it is shared with
- * its text, and the styling of that text
- *
-*/
-
+ * An entity representing a document. Documents have a name, creator, and list of
+ * users that can access it.
+ */
 public class Document {
+
     private final String name;
-    private final String owner;
-    private final List<String>sharedWith = new ArrayList<>();
-    private final String text;
-    private final List<TextRun> runs;
+    private final User creator;
+    private List<User> accessedBy = new ArrayList<>();
+    private String contents = ""; // edit contents type later if needed
 
-    public Document(String name, String owner, String text, List<TextRun> runs){
+    /**
+     * Creates a new document with the given non-empty name and the user that
+     * created it.
+     * @param name the name
+     * @param creator the creator
+     * @throws IllegalArgumentException if the name is empty
+     */
+    public Document(String name, User creator) {
+        if ("".equals(name)) {
+            throw new IllegalArgumentException("Document name cannot be empty.");
+        }
         this.name = name;
-        this.owner = owner;
-        this.text = text;
-        this.runs = new ArrayList<>(runs);
-    }
-
-    public Document(String text, List<TextRun> runs){
-        this("Untitled", "", text, runs);
-    }
-
-    public String getName(){
-        return name;
-    }
-    public String getOwner(){
-        return owner;
-    }
-    public String getText(){
-        return text;
-    }
-    public List<TextRun> getRuns(){
-        return runs;
-    }
-    public List<String> getSharedWith(){
-        return sharedWith;
-    }
-
-    public void shareWith(String username){
-        if(!canAccess(username)){
-            sharedWith.add(username);
+        this.creator = creator;
+        if (!creator.getDocumentsCreated().contains(this)) {
+            creator.addDocumentCreated(this);
         }
     }
 
-    public boolean canAccess(String username){
-        return owner.equals(username) || sharedWith.contains(username);
+    /**
+     * Creates a new document with the given non-empty name, the user that created
+     * it, a list of users who can access it, and the contents of the document.
+     * @param name the name
+     * @param creator the creator
+     * @param accessedBy the list of accessors
+     * @param contents the contents
+     * @throws IllegalArgumentException if the name is empty
+     */
+    public Document(String name, User creator, List<User> accessedBy, String contents) {
+        this(name, creator);
+        this.accessedBy = accessedBy;
+        this.contents = contents;
+        for (User accessedByUser : accessedBy) {
+            if (accessedByUser != null && !accessedByUser.getDocumentsAccessed().contains(this)) {
+                accessedByUser.addDocumentAccessed(this);
+            }
+        }
+    }
+
+    public String getName() { return name; }
+
+    public User getCreator() { return creator; }
+
+    public String getContents() { return contents; }
+
+    public List<User> getAccessedBy() { return accessedBy; }
+
+    public void addAccessedBy(User user) {
+        accessedBy.add(user);
+        if (!user.getDocumentsAccessed().contains(this)) {
+            user.addDocumentAccessed(this);
+        }
     }
 }
