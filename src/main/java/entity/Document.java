@@ -12,6 +12,7 @@ public class Document {
     private final String name;
     private final User creator;
     private List<User> accessedBy = new ArrayList<>();
+    private List<TextRun> runs = new ArrayList<>();
     private String contents = ""; // edit contents type later if needed
 
     /**
@@ -41,15 +42,20 @@ public class Document {
      * @param contents the contents
      * @throws IllegalArgumentException if the name is empty
      */
-    public Document(String name, User creator, List<User> accessedBy, String contents) {
+    public Document(String name, User creator, List<User> accessedBy, String contents, List<TextRun> runs) {
         this(name, creator);
         this.accessedBy = accessedBy;
         this.contents = contents;
+        this.runs = new ArrayList<>(runs);
         for (User accessedByUser : accessedBy) {
             if (accessedByUser != null && !accessedByUser.getDocumentsAccessed().contains(this)) {
                 accessedByUser.addDocumentAccessed(this);
             }
         }
+    }
+
+    public Document(String contents, List<TextRun> runs) {
+        this("Untitled", null, new ArrayList<>(), contents, runs);
     }
 
     public String getName() { return name; }
@@ -59,6 +65,8 @@ public class Document {
     public String getContents() { return contents; }
 
     public List<User> getAccessedBy() { return accessedBy; }
+
+    public List<TextRun> getRuns() { return runs; }
 
     public void addAccessedBy(User user) {
         accessedBy.add(user);
